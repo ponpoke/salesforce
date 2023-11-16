@@ -4,7 +4,7 @@ import jwt
 from datetime import datetime, timedelta
 import requests
 
-from convert_jks_to_pem import process_keystore
+from convert_utils import process_keystore
 
 # .env ファイルから環境変数を読み込む
 load_dotenv()

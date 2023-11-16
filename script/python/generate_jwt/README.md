@@ -23,7 +23,7 @@ KEY_ALIAS="jksのエイリアス名"
 
 スクリプトを実行
 ```
-python generate_jwt.py
+python main.py
 ```
 
 ### pem
@@ -44,6 +44,6 @@ PRIVATE_KEY_PATH="jksファイルのパス"
 
 スクリプトを実行
 ```
-python generate_jwt.py
+python main.py
 ```
 
