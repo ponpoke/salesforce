@@ -1,6 +1,16 @@
+import os
+from dotenv import load_dotenv
 import jwt
 from datetime import datetime, timedelta
 import requests
+
+# .env ファイルから環境変数を読み込む
+load_dotenv()
+
+# 環境変数から値を取得する
+consumer_id = os.getenv("CONSUMER_ID")
+username = os.getenv("USERNAME")
+private_key_path = os.getenv("PRIVATE_KEY_PATH")
 
 def generate_jwt_token():
     # ヘッダー
@@ -11,14 +21,14 @@ def generate_jwt_token():
 
     # ペイロード
     payload = {
-        "iss": "consumer id",
-        "sub": "username",
+        "iss": consumer_id,
+        "sub": username,
         "aud": "https://login.salesforce.com",
         "exp": datetime.now().timestamp() + (3 * 60)  # 3分間
     }
 
     # 秘密鍵の読み込み
-    with open("key/demo.pem", "r") as f:
+    with open(private_key_path, "r") as f:
         private_key = f.read()
 
     # JWT生成
@@ -45,8 +55,6 @@ def get_access_token(jwt_token):
 if __name__ == "__main__":
     # JWTトークン生成
     jwt_token = generate_jwt_token()
-
-    # print(jwt_token)
 
     # Salesforceアクセストークン取得
     access_token_response = get_access_token(jwt_token)

@@ -1,6 +1,20 @@
+import os
+from dotenv import load_dotenv
 import jwt
 from datetime import datetime, timedelta
 import requests
+
+from convert_jks_to_pem import process_keystore
+
+# .env ファイルから環境変数を読み込む
+load_dotenv()
+
+# 環境変数から値を取得する
+consumer_id = os.getenv("CONSUMER_ID")
+username = os.getenv("USERNAME")
+private_key_path = os.getenv("PRIVATE_KEY_PATH") # keyのパスを指定する
+keystore_pass = os.getenv("KEY_STORE_PASSWORD")  # jks をに設定したパスワードを設定する
+key_alias = os.getenv("KEY_ALIAS")  # jks のエイリアス名を指定する
 
 def generate_jwt_token():
     # ヘッダー
@@ -11,15 +25,14 @@ def generate_jwt_token():
 
     # ペイロード
     payload = {
-        "iss": "consumer id",
-        "sub": "username",
+        "iss": consumer_id,
+        "sub": username,
         "aud": "https://login.salesforce.com",
         "exp": datetime.now().timestamp() + (3 * 60)  # 3分間
     }
 
     # 秘密鍵の読み込み
-    with open("key/demo.pem", "r") as f:
-        private_key = f.read()
+    private_key = process_keystore(private_key_path, keystore_pass, key_alias)
 
     # JWT生成
     jwt_token = jwt.encode(payload, private_key, algorithm="RS256", headers=header)
@@ -45,8 +58,6 @@ def get_access_token(jwt_token):
 if __name__ == "__main__":
     # JWTトークン生成
     jwt_token = generate_jwt_token()
-
-    # print(jwt_token)
 
     # Salesforceアクセストークン取得
     access_token_response = get_access_token(jwt_token)
