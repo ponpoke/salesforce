@@ -3,22 +3,19 @@ import base64
 import textwrap
 import jks
 
-def print_pem(der_bytes, type):
-    print("-----BEGIN %s-----" % type)
+def print_pem(der_bytes, pem_type):
+    print(f"-----BEGIN {pem_type}-----")
     print("\r\n".join(textwrap.wrap(base64.b64encode(der_bytes).decode('ascii'), 64)))
-    print("-----END %s-----" % type)
+    print(f"-----END {pem_type}-----")
 
 # ...
+path_key = "./key/ファイル名,jks" # keyのパスを指定する
+keystore_pass = "" # jks をに設定したパスワードを設定する
+key_alias = '' # エイリアス名を指定する
 
-keystorePath = os.path.abspath("key/00D5j00000BRFre.jks")
-keystorePass = "test12345"
-keystore = jks.KeyStore.load(keystorePath, keystorePass)
+keystore_path = os.path.abspath("key/00D5j00000BRFre.jks")
+keystore = jks.KeyStore.load(keystore_path, keystore_pass)
 
-keyAlias = 'case45664050'
-private_key_entry = keystore.private_keys[keyAlias]
-#private_key_bytes = private_key_entry.pkey
-#encoded_data = base64.b64encode(private_key_bytes)
+private_key_entry = keystore.private_keys[key_alias]
 
 print_pem(private_key_entry.pkey_pkcs8, "PRIVATE KEY")
-
-#print(pem)

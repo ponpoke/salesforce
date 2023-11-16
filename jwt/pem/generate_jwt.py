@@ -18,7 +18,7 @@ def generate_jwt_token():
     }
 
     # 秘密鍵の読み込み
-    with open("key/_demo.pem", "r") as f:
+    with open("key/demo.pem", "r") as f:
         private_key = f.read()
 
     # JWT生成
