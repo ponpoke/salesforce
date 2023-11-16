@@ -12,18 +12,15 @@ load_dotenv()
 # 環境変数から値を取得する
 consumer_id = os.getenv("CONSUMER_ID")
 username = os.getenv("USERNAME")
-private_key_path = os.getenv("PRIVATE_KEY_PATH") # keyのパスを指定する
-keystore_pass = os.getenv("KEY_STORE_PASSWORD")  # jks をに設定したパスワードを設定する
-key_alias = os.getenv("KEY_ALIAS")  # jks のエイリアス名を指定する
+private_key_path = os.getenv("PRIVATE_KEY_PATH")  # 秘密鍵のパス
+keystore_pass = os.getenv("KEY_STORE_PASSWORD")  # KeyStoreのパスワード
+key_alias = os.getenv("KEY_ALIAS")  # KeyStoreのエイリアス名
 
 def generate_jwt_token():
-    # ヘッダー
-    header = {
-        "alg": "RS256",
-        "typ": "JWT"
-    }
+    # JWTヘッダー
+    header = {"alg": "RS256", "typ": "JWT"}
 
-    # ペイロード
+    # JWTペイロード
     payload = {
         "iss": consumer_id,
         "sub": username,
@@ -42,9 +39,7 @@ def generate_jwt_token():
 def get_access_token(jwt_token):
     url = "https://login.salesforce.com/services/oauth2/token"
     
-    headers = {
-        "Content-Type": "application/x-www-form-urlencoded"
-    }
+    headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
     payload = {
         "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",

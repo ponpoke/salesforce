@@ -5,8 +5,6 @@ Salesforce 組織のキーストアからエクスポートとり取得した jk
 
 .envファイルを編集
 ```
-CONSUMER_ID="接続アプリケーションから取得したコンシューマID"
-USERNAME="実行する Salesforce ユーザ名"
 PRIVATE_KEY_PATH="jksファイルのパス"
 KEY_STORE_PASSWORD ="jksに設定したパスワード"
 KEY_ALIAS="jksのエイリアス名"

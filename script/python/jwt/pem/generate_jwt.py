@@ -13,13 +13,10 @@ username = os.getenv("USERNAME")
 private_key_path = os.getenv("PRIVATE_KEY_PATH")
 
 def generate_jwt_token():
-    # ヘッダー
-    header = {
-        "alg": "RS256",
-        "typ": "JWT"
-    }
+    # JWTヘッダー
+    header = {"alg": "RS256", "typ": "JWT"}
 
-    # ペイロード
+    # JWTペイロード
     payload = {
         "iss": consumer_id,
         "sub": username,
@@ -39,9 +36,7 @@ def generate_jwt_token():
 def get_access_token(jwt_token):
     url = "https://login.salesforce.com/services/oauth2/token"
     
-    headers = {
-        "Content-Type": "application/x-www-form-urlencoded"
-    }
+    headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
     payload = {
         "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",

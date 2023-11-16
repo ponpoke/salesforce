@@ -1,14 +1,14 @@
 ## 概要
-Salesforce の 接続アプリケーションを使用した JWT 認証を Python で行う
+Salesforceの接続アプリケーションを使用したJWT認証をPythonで行う
 
 ## スクリプト概要
 ### jks
-Salesforce 組織の [証明書と鍵の管理] 画面より作成した自己署名証明書および、対応する非公開鍵をキーストアからエクスポートした
- jks ファイルを使用して JWT を生成する
+Salesforce組織の[証明書と鍵の管理]画面より作成した自己署名証明書および、対応する非公開鍵をキーストアからエクスポートした
+ jksファイルを使用してJWTを生成する
 
 - 使用手順
 
-jks ディレクトリに移動
+jksディレクトリに移動
 ```
 cd jks
 ```
@@ -27,11 +27,11 @@ python generate_jwt.py
 ```
 
 ### pem
-OpenSSL コマンドなど Salesforce 組織外で作成した pem を使用して JWT を生成する
+OpenSSLコマンドなどSalesforce組織外で作成したpemを使用してJWTを生成する
 
 - 使用手順
 
-pem ディレクトリに移動
+pemディレクトリに移動
 ```
 cd pem
 ```
